@@ -241,6 +241,17 @@
                 flex-direction: column;
             }
         }
+        
+        /* Color preview for hijab colors */
+        .color-preview {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            margin-right: 8px;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
     </style>
 </head>
 <body>
@@ -307,6 +318,27 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="ekspresi"><i class="fas fa-smile"></i> Ekspresi Wajah</label>
+                    <select id="ekspresi">
+                        <option value="dengan senyum alami">Senyum Alami</option>
+                        <option value="dengan ekspresi anggun dan elegan">Anggun dan Elegan</option>
+                        <option value="dengan ekspresi serius namun ramah">Serius namun Ramah</option>
+                        <option value="dengan senyum manis dan mata berbinar">Senyum Manis, Mata Berbinar</option>
+                        <option value="dengan ekspresi percaya diri">Percaya Diri</option>
+                        <option value="dengan senyum tipis misterius">Senyum Tipis Misterius</option>
+                        <option value="dengan ekspresi kontemplatif">Kontemplatif (Berpikir)</option>
+                        <option value="dengan senyum lebar dan ceria">Senyum Lebar dan Ceria</option>
+                        <option value="dengan ekspresi tenang dan damai">Tenang dan Damai</option>
+                        <option value="dengan pandangan lembut ke kejauhan">Pandangan Lembut ke Kejauhan</option>
+                        <option value="dengan ekspresi playful (bermain-main)">Playful (Bermain-main)</option>
+                        <option value="dengan ekspresi fokus dan intens">Fokus dan Intens</option>
+                        <option value="dengan senyum tertutup dan sopan">Senyum Tertutup dan Sopan</option>
+                        <option value="dengan ekspresi bahagia dan berseri-seri">Bahagia dan Berseri-seri</option>
+                        <option value="dengan ekspresi netral fotogenik">Netral Fotogenik</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
                     <label for="lokasi"><i class="fas fa-map-marker-alt"></i> Lokasi</label>
                     <select id="lokasi">
                         <option value="ruang tamu minimalis">Ruang Tamu Minimalis</option>
@@ -327,27 +359,27 @@
                 <div class="form-group">
                     <label for="warnaJilbab"><i class="fas fa-head-scarf"></i> Warna Jilbab</label>
                     <select id="warnaJilbab">
-                        <option value="Blush">Blush</option>
-                        <option value="Ivory">Ivory</option>
-                        <option value="Black">Black</option>
-                        <option value="Coffe">Coffe</option>
-                        <option value="Red wine">Red wine</option>
-                        <option value="Broken white">Broken white</option>
-                        <option value="Nude">Nude</option>
-                        <option value="Dark jeans">Dark jeans</option>
-                        <option value="Mocca">Mocca</option>
-                        <option value="Dark grey">Dark grey</option>
-                        <option value="Creamy">Creamy</option>
-                        <option value="Stone">Stone</option>
-                        <option value="Burgundy">Burgundy</option>
-                        <option value="Navy">Navy</option>
-                        <option value="Charcoal">Charcoal</option>
-                        <option value="Babynude">Babynude</option>
-                        <option value="Soft pink">Soft pink</option>
-                        <option value="Soft frappuchino">Soft frappuchino</option>
-                        <option value="Caramel">Caramel</option>
-                        <option value="Nude rose">Nude rose</option>
-                        <option value="Smoke grey">Smoke grey</option>
+                        <option value="Blush" data-color="#f5c3c2">Blush</option>
+                        <option value="Ivory" data-color="#fffff0">Ivory</option>
+                        <option value="Black" data-color="#000000">Black</option>
+                        <option value="Coffe" data-color="#6f4e37">Coffe</option>
+                        <option value="Red wine" data-color="#722f37">Red wine</option>
+                        <option value="Broken white" data-color="#f5f5f5">Broken white</option>
+                        <option value="Nude" data-color="#e3bc9a">Nude</option>
+                        <option value="Dark jeans" data-color="#1560bd">Dark jeans</option>
+                        <option value="Mocca" data-color="#8b5a2b">Mocca</option>
+                        <option value="Dark grey" data-color="#a9a9a9">Dark grey</option>
+                        <option value="Creamy" data-color="#fffdd0">Creamy</option>
+                        <option value="Stone" data-color="#928e85">Stone</option>
+                        <option value="Burgundy" data-color="#800020">Burgundy</option>
+                        <option value="Navy" data-color="#000080">Navy</option>
+                        <option value="Charcoal" data-color="#36454f">Charcoal</option>
+                        <option value="Babynude" data-color="#f4d2c2">Babynude</option>
+                        <option value="Soft pink" data-color="#ffb6c1">Soft pink</option>
+                        <option value="Soft frappuchino" data-color="#e1d5c7">Soft frappuchino</option>
+                        <option value="Caramel" data-color="#af6e4d">Caramel</option>
+                        <option value="Nude rose" data-color="#e8b4b8">Nude rose</option>
+                        <option value="Smoke grey" data-color="#848884">Smoke grey</option>
                     </select>
                 </div>
 
@@ -367,7 +399,7 @@
                 
                 <div class="prompt-container">
                     <div class="prompt-text" id="promptOutput">
-                        Seorang wanita berjilbab mengenakan <span class="highlight">Gamis</span> <span class="highlight">hitam</span> <span class="highlight">berpose seperti model profesional</span> di <span class="highlight">ruang tamu minimalis</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">Blush</span>.
+                        Seorang wanita berjilbab mengenakan <span class="highlight">Gamis</span> <span class="highlight">hitam</span> <span class="highlight">berpose seperti model profesional</span> <span class="highlight">dengan senyum alami</span> di <span class="highlight">ruang tamu minimalis</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">Blush</span>.
                     </div>
                 </div>
 
@@ -378,6 +410,7 @@
                         <li>Detail seperti "foto setengah badan" dan "pertahankan detail wajah" membantu AI memahami komposisi yang diinginkan</li>
                         <li>Spesifikasi "tanpa teks" mencegah AI menambahkan teks yang tidak diinginkan pada gambar</li>
                         <li>Gunakan warna-warna spesifik untuk hasil yang lebih akurat</li>
+                        <li>Ekspresi wajah yang detail akan menghasilkan gambar dengan karakter yang lebih kuat</li>
                     </ul>
                 </div>
             </div>
@@ -393,21 +426,42 @@
             const pakaianSelect = document.getElementById('pakaian');
             const warnaSelect = document.getElementById('warna');
             const poseSelect = document.getElementById('pose');
+            const ekspresiSelect = document.getElementById('ekspresi');
             const lokasiSelect = document.getElementById('lokasi');
             const warnaJilbabSelect = document.getElementById('warnaJilbab');
             const promptOutput = document.getElementById('promptOutput');
             const generateBtn = document.getElementById('generateBtn');
             const copyBtn = document.getElementById('copyBtn');
             
+            // Fungsi untuk menambahkan preview warna pada dropdown jilbab
+            function addColorPreviews() {
+                const options = warnaJilbabSelect.options;
+                
+                // Hapus warna yang sudah ada sebelumnya
+                const existingColors = document.querySelectorAll('.color-preview');
+                existingColors.forEach(color => color.remove());
+                
+                // Tambahkan preview warna untuk setiap opsi
+                for (let i = 0; i < options.length; i++) {
+                    const option = options[i];
+                    const colorValue = option.getAttribute('data-color');
+                    const colorSpan = document.createElement('span');
+                    colorSpan.className = 'color-preview';
+                    colorSpan.style.backgroundColor = colorValue;
+                    option.insertBefore(colorSpan, option.firstChild);
+                }
+            }
+            
             // Fungsi untuk menghasilkan prompt
             function generatePrompt() {
                 const pakaian = pakaianSelect.value;
                 const warna = warnaSelect.value;
                 const pose = poseSelect.value;
+                const ekspresi = ekspresiSelect.value;
                 const lokasi = lokasiSelect.value;
                 const warnaJilbab = warnaJilbabSelect.value;
                 
-                const prompt = `Seorang wanita berjilbab mengenakan <span class="highlight">${pakaian}</span> <span class="highlight">${warna}</span> <span class="highlight">${pose}</span> di <span class="highlight">${lokasi}</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">${warnaJilbab}</span>.`;
+                const prompt = `Seorang wanita berjilbab mengenakan <span class="highlight">${pakaian}</span> <span class="highlight">${warna}</span> <span class="highlight">${pose}</span> <span class="highlight">${ekspresi}</span> di <span class="highlight">${lokasi}</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">${warnaJilbab}</span>.`;
                 
                 promptOutput.innerHTML = prompt;
                 
@@ -417,6 +471,7 @@
             
             // Fungsi untuk menyalin prompt ke clipboard
             async function copyPrompt() {
+                // Hapus tag HTML dari prompt sebelum menyalin
                 const promptText = promptOutput.innerText;
                 
                 try {
@@ -474,21 +529,21 @@
                         }
                     }, 300);
                 }, 3000);
-                
-                // Tambahkan keyframes animasi
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes slideIn {
-                        from { transform: translateX(100%); opacity: 0; }
-                        to { transform: translateX(0); opacity: 1; }
-                    }
-                    @keyframes slideOut {
-                        from { transform: translateX(0); opacity: 1; }
-                        to { transform: translateX(100%); opacity: 0; }
-                    }
-                `;
-                document.head.appendChild(style);
             }
+            
+            // Tambahkan keyframes animasi untuk notifikasi
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes slideIn {
+                    from { transform: translateX(100%); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+                @keyframes slideOut {
+                    from { transform: translateX(0); opacity: 1; }
+                    to { transform: translateX(100%); opacity: 0; }
+                }
+            `;
+            document.head.appendChild(style);
             
             // Event listener untuk tombol generate
             generateBtn.addEventListener('click', generatePrompt);
@@ -500,10 +555,12 @@
             pakaianSelect.addEventListener('change', generatePrompt);
             warnaSelect.addEventListener('change', generatePrompt);
             poseSelect.addEventListener('change', generatePrompt);
+            ekspresiSelect.addEventListener('change', generatePrompt);
             lokasiSelect.addEventListener('change', generatePrompt);
             warnaJilbabSelect.addEventListener('change', generatePrompt);
             
-            // Inisialisasi prompt pertama kali
+            // Inisialisasi preview warna dan prompt pertama kali
+            addColorPreviews();
             generatePrompt();
         });
     </script>
