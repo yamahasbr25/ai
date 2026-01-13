@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prompt Generator Text-to-Image Profesional</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+
+        header p {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        @media (min-width: 992px) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .controls-section {
+                flex: 1;
+            }
+            
+            .preview-section {
+                flex: 1;
+            }
+        }
+
+        .section {
+            background-color: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: #3498db;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #333;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+            cursor: pointer;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .color-option {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            border: 1px solid #ddd;
+        }
+
+        .prompt-container {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #3498db;
+            font-size: 18px;
+            line-height: 1.7;
+            word-break: break-word;
+        }
+
+        .prompt-text {
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .highlight {
+            background-color: #fffacd;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #3498db;
+            color: white;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #ecf0f1;
+            color: #2c3e50;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background-color: #d5dbdb;
+            transform: translateY(-2px);
+        }
+
+        .tip-box {
+            background-color: #e8f4fc;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            border-left: 5px solid #3498db;
+        }
+
+        .tip-box h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tip-box ul {
+            padding-left: 20px;
+        }
+
+        .tip-box li {
+            margin-bottom: 8px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                width: 100%;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-magic"></i> Prompt Generator Text-to-Image</h1>
+            <p>Buat prompt profesional untuk AI image generator dengan mudah. Pilih opsi yang tersedia dan hasilkan prompt berkualitas tinggi.</p>
+        </header>
+
+        <div class="app-container">
+            <div class="controls-section section">
+                <h2 class="section-title"><i class="fas fa-sliders-h"></i> Pengaturan Prompt</h2>
+                
+                <div class="form-group">
+                    <label for="pakaian"><i class="fas fa-tshirt"></i> Pakaian</label>
+                    <select id="pakaian">
+                        <option value="Gamis">Gamis</option>
+                        <option value="Tunik">Tunik</option>
+                        <option value="Kaftan">Kaftan</option>
+                        <option value="Abaya">Abaya</option>
+                        <option value="Baju Kurung">Baju Kurung</option>
+                        <option value="Kebaya">Kebaya</option>
+                        <option value="Blouse Muslim">Blouse Muslim</option>
+                        <option value="Mukena">Mukena</option>
+                        <option value="Jubah">Jubah</option>
+                        <option value="Cardigan Panjang">Cardigan Panjang</option>
+                        <option value="Setelan Koko Wanita">Setelan Koko Wanita</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="warna"><i class="fas fa-palette"></i> Warna Pakaian</label>
+                    <select id="warna">
+                        <option value="hitam">Hitam</option>
+                        <option value="putih">Putih</option>
+                        <option value="abu-abu">Abu-abu</option>
+                        <option value="coklat">Coklat</option>
+                        <option value="merah">Merah</option>
+                        <option value="biru">Biru</option>
+                        <option value="hijau">Hijau</option>
+                        <option value="ungu">Ungu</option>
+                        <option value="pink">Pink</option>
+                        <option value="emas">Emas</option>
+                        <option value="perak">Perak</option>
+                        <option value="krem">Krem</option>
+                        <option value="maroon">Maroon</option>
+                        <option value="navy">Navy</option>
+                        <option value="taupe">Taupe</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="pose"><i class="fas fa-user"></i> Gaya Pose</label>
+                    <select id="pose">
+                        <option value="berpose seperti model profesional">Berpose seperti model profesional</option>
+                        <option value="duduk santai dengan senyum alami">Duduk santai dengan senyum alami</option>
+                        <option value="berdiri anggun dengan tangan di pinggang">Berdiri anggun dengan tangan di pinggang</option>
+                        <option value="memandang ke samping dengan ekspresi serius">Memandang ke samping dengan ekspresi serius</option>
+                        <option value="tersenyum lembut ke arah kamera">Tersenyum lembut ke arah kamera</option>
+                        <option value="berjalan dengan anggun">Berjalan dengan anggun</option>
+                        <option value="bersandar di dinding dengan gaya casual">Bersandar di dinding dengan gaya casual</option>
+                        <option value="memegang jilbab dengan elegan">Memegang jilbab dengan elegan</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="lokasi"><i class="fas fa-map-marker-alt"></i> Lokasi</label>
+                    <select id="lokasi">
+                        <option value="ruang tamu minimalis">Ruang Tamu Minimalis</option>
+                        <option value="mall modern">Mall Modern</option>
+                        <option value="cafe aesthetic">Cafe Aesthetic</option>
+                        <option value="taman bunga">Taman Bunga</option>
+                        <option value="pantai saat senja">Pantai saat Senja</option>
+                        <option value="perpusatakaan elegan">Perpustakaan Elegan</option>
+                        <option value="studio foto profesional">Studio Foto Profesional</option>
+                        <option value="kamar tidur cozy">Kamar Tidur Cozy</option>
+                        <option value="dapur modern">Dapur Modern</option>
+                        <option value="kantor mewah">Kantor Mewah</option>
+                        <option value="masjid yang indah">Masjid yang Indah</option>
+                        <option value="jalanan kota di malam hari">Jalanan Kota di Malam Hari</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="warnaJilbab"><i class="fas fa-head-scarf"></i> Warna Jilbab</label>
+                    <select id="warnaJilbab">
+                        <option value="Blush">Blush</option>
+                        <option value="Ivory">Ivory</option>
+                        <option value="Black">Black</option>
+                        <option value="Coffe">Coffe</option>
+                        <option value="Red wine">Red wine</option>
+                        <option value="Broken white">Broken white</option>
+                        <option value="Nude">Nude</option>
+                        <option value="Dark jeans">Dark jeans</option>
+                        <option value="Mocca">Mocca</option>
+                        <option value="Dark grey">Dark grey</option>
+                        <option value="Creamy">Creamy</option>
+                        <option value="Stone">Stone</option>
+                        <option value="Burgundy">Burgundy</option>
+                        <option value="Navy">Navy</option>
+                        <option value="Charcoal">Charcoal</option>
+                        <option value="Babynude">Babynude</option>
+                        <option value="Soft pink">Soft pink</option>
+                        <option value="Soft frappuchino">Soft frappuchino</option>
+                        <option value="Caramel">Caramel</option>
+                        <option value="Nude rose">Nude rose</option>
+                        <option value="Smoke grey">Smoke grey</option>
+                    </select>
+                </div>
+
+                <div class="actions">
+                    <button class="btn btn-primary" id="generateBtn">
+                        <i class="fas fa-sync-alt"></i> Generate Prompt
+                    </button>
+                    <button class="btn btn-secondary" id="copyBtn">
+                        <i class="far fa-copy"></i> Copy Prompt
+                    </button>
+                </div>
+            </div>
+
+            <div class="preview-section section">
+                <h2 class="section-title"><i class="fas fa-eye"></i> Preview Prompt</h2>
+                <p>Prompt yang dihasilkan akan muncul di bawah ini:</p>
+                
+                <div class="prompt-container">
+                    <div class="prompt-text" id="promptOutput">
+                        Seorang wanita berjilbab mengenakan <span class="highlight">Gamis</span> <span class="highlight">hitam</span> <span class="highlight">berpose seperti model profesional</span> di <span class="highlight">ruang tamu minimalis</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">Blush</span>.
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <h3><i class="fas fa-lightbulb"></i> Tips untuk Hasil Terbaik</h3>
+                    <ul>
+                        <li>Prompt ini dioptimalkan untuk AI image generator seperti Midjourney, DALL-E, atau Stable Diffusion</li>
+                        <li>Detail seperti "foto setengah badan" dan "pertahankan detail wajah" membantu AI memahami komposisi yang diinginkan</li>
+                        <li>Spesifikasi "tanpa teks" mencegah AI menambahkan teks yang tidak diinginkan pada gambar</li>
+                        <li>Gunakan warna-warna spesifik untuk hasil yang lebih akurat</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Tool Prompt Generator Text-to-Image &copy; 2023 | Dibuat untuk mempermudah pembuatan prompt profesional</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const pakaianSelect = document.getElementById('pakaian');
+            const warnaSelect = document.getElementById('warna');
+            const poseSelect = document.getElementById('pose');
+            const lokasiSelect = document.getElementById('lokasi');
+            const warnaJilbabSelect = document.getElementById('warnaJilbab');
+            const promptOutput = document.getElementById('promptOutput');
+            const generateBtn = document.getElementById('generateBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            
+            // Fungsi untuk menghasilkan prompt
+            function generatePrompt() {
+                const pakaian = pakaianSelect.value;
+                const warna = warnaSelect.value;
+                const pose = poseSelect.value;
+                const lokasi = lokasiSelect.value;
+                const warnaJilbab = warnaJilbabSelect.value;
+                
+                const prompt = `Seorang wanita berjilbab mengenakan <span class="highlight">${pakaian}</span> <span class="highlight">${warna}</span> <span class="highlight">${pose}</span> di <span class="highlight">${lokasi}</span>. Foto setengah badan. Fokus pada gaya jilbab, pertahankan detail wajah dan bentuk jilbab. Tanpa teks. Warna jilbab: <span class="highlight">${warnaJilbab}</span>.`;
+                
+                promptOutput.innerHTML = prompt;
+                
+                // Tampilkan notifikasi
+                showNotification('Prompt berhasil dihasilkan!', 'success');
+            }
+            
+            // Fungsi untuk menyalin prompt ke clipboard
+            async function copyPrompt() {
+                const promptText = promptOutput.innerText;
+                
+                try {
+                    await navigator.clipboard.writeText(promptText);
+                    showNotification('Prompt berhasil disalin ke clipboard!', 'success');
+                } catch (err) {
+                    console.error('Gagal menyalin teks: ', err);
+                    showNotification('Gagal menyalin prompt. Silakan coba lagi.', 'error');
+                }
+            }
+            
+            // Fungsi untuk menampilkan notifikasi sederhana
+            function showNotification(message, type) {
+                // Hapus notifikasi sebelumnya jika ada
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                // Buat elemen notifikasi
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.textContent = message;
+                
+                // Style notifikasi
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 20px;
+                    border-radius: 10px;
+                    color: white;
+                    font-weight: 600;
+                    z-index: 1000;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    animation: slideIn 0.3s ease;
+                `;
+                
+                // Atur warna berdasarkan tipe
+                if (type === 'success') {
+                    notification.style.backgroundColor = '#2ecc71';
+                } else {
+                    notification.style.backgroundColor = '#e74c3c';
+                }
+                
+                // Tambahkan ke body
+                document.body.appendChild(notification);
+                
+                // Hapus notifikasi setelah 3 detik
+                setTimeout(() => {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            notification.parentNode.removeChild(notification);
+                        }
+                    }, 300);
+                }, 3000);
+                
+                // Tambahkan keyframes animasi
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes slideIn {
+                        from { transform: translateX(100%); opacity: 0; }
+                        to { transform: translateX(0); opacity: 1; }
+                    }
+                    @keyframes slideOut {
+                        from { transform: translateX(0); opacity: 1; }
+                        to { transform: translateX(100%); opacity: 0; }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Event listener untuk tombol generate
+            generateBtn.addEventListener('click', generatePrompt);
+            
+            // Event listener untuk tombol copy
+            copyBtn.addEventListener('click', copyPrompt);
+            
+            // Event listener untuk perubahan dropdown (update real-time)
+            pakaianSelect.addEventListener('change', generatePrompt);
+            warnaSelect.addEventListener('change', generatePrompt);
+            poseSelect.addEventListener('change', generatePrompt);
+            lokasiSelect.addEventListener('change', generatePrompt);
+            warnaJilbabSelect.addEventListener('change', generatePrompt);
+            
+            // Inisialisasi prompt pertama kali
+            generatePrompt();
+        });
+    </script>
+</body>
+</html>
